@@ -11,4 +11,5 @@ export class Bike
         public imageUrls: string[],
         public id?: string
      ) { }
+
 }
