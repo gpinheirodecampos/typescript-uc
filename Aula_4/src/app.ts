@@ -22,23 +22,33 @@ export class App {
         this.users.push(user)
     }
 
-    // register bike
-    // remove bike
-    // rent bike
     rentBike(bikeId: string, userEmail: string, startDate: Date, endDate: Date) {
         // recuperar a bike
+        var bikeProcurada = this.bikes.find(bike => bike.id == bikeId);
+    
         // recuperar o usuario
+        var usuarioProcurado = this.users.find(user => user.email == userEmail);
+
         // array somente com as reservas para a bike
+        //var reservas = this.rents.find(res => res.bike == bikeProcurada);
+        //console.log(reservas);
+
         // tentar criar o rent com o array e as informações da reserva
+        //Rent.create(reservas, startDate, endDate, bikeProcurada, usuarioProcurado);
+
         // adicionar a reserva ao array de reservas
+        //this.rents.push(reservas);
+
+        // return bike
+        //return bikeProcurada;
     }
-    // return bike
+    
 
     registerBike(bike: Bike) {
         // Gerando ID da bicicleta
         bike.id = crypto.randomUUID();
 
-        // Cadastrando a bicicleta no array
+        // Cadastrando a bicicleta no array e retornando o ID
         this.bikes.push(bike);
         return bike.id;
     }
