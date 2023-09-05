@@ -13,36 +13,56 @@ export class App {
         return this.users.find(user => user.email === email)
     }
 
-    registerUser(user: User): void {
+    registerUser(user: User): string {
         for (const rUser of this.users) {
             if (rUser.email === user.email) {
                 throw new Error('Duplicate user.')
             }
         }
-        this.users.push(user)
+        user.id = crypto.randomUUID();
+        this.users.push(user);
+        return user.id;
     }
 
     rentBike(bikeId: string, userEmail: string, startDate: Date, endDate: Date) {
         // recuperar a bike
-        var bikeProcurada = this.bikes.find(bike => bike.id == bikeId);
-    
+        const bikeProcurada = this.bikes.find(bike => bike.id == bikeId);
+        //console.log(bikeProcurada);
+        // this.bikes.forEach(element => {
+        //     console.log(element);
+        // });
+
         // recuperar o usuario
-        var usuarioProcurado = this.users.find(user => user.email == userEmail);
+        const usuarioProcurado = this.users.find(user => user.email == userEmail);
 
         // array somente com as reservas para a bike
-        //var reservas = this.rents.find(res => res.bike == bikeProcurada);
-        //console.log(reservas);
+        const reservas = this.rents.filter(reserva => 
+            reserva.bike.id == bikeProcurada.id && !reserva.dateReturned);
 
         // tentar criar o rent com o array e as informações da reserva
-        //Rent.create(reservas, startDate, endDate, bikeProcurada, usuarioProcurado);
+        const novaReserva = Rent.create(reservas, startDate, endDate, bikeProcurada, usuarioProcurado);
 
         // adicionar a reserva ao array de reservas
-        //this.rents.push(reservas);
+        this.rents.push(novaReserva);
 
-        // return bike
-        //return bikeProcurada;
+        //console.log(novaReserva);
     }
     
+    // return bike
+    retornarBike(bikeId: string, userEmail: string) {
+        const today = new Date();
+        const reserva = this.rents.find(reserva =>
+            reserva.bike.id == bikeId &&
+            reserva.user.email == userEmail &&
+            reserva.dateReturned  == undefined &&
+            reserva.dateFrom <= today
+        )
+        if (reserva) {
+            reserva.dateReturned = today;
+            return
+        }
+        //console.log(reserva);
+    }
 
     registerBike(bike: Bike) {
         // Gerando ID da bicicleta
@@ -53,16 +73,16 @@ export class App {
         return bike.id;
     }
 
-    removeBike(bikeId: string) : void {
-        // Encontrando o index da bicicleta que ira ser removida
-        var indexBike = this.bikes.findIndex(bike => bike.id === bikeId);
+    removeUser(userId: string) : void {
+        // Encontrando o index do usuario que ira ser removido
+        var indexUser = this.users.findIndex(user => user.id === userId);
         
-        // Se a bike não existe
-        if (indexBike == -1) {
+        // Se o usuario não existe
+        if (indexUser == -1) {
             throw new Error('Bike não encontrada.')
         }
 
         // Removendo
-        this.bikes.splice(indexBike, 1);
+        this.bikes.splice(indexUser, 1);
     }
 }
