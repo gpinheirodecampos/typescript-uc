@@ -93,4 +93,16 @@ export class App {
         // Removendo
         this.bikes.splice(indexUser, 1);
     }
+
+    listUser(): User[] {
+        return this.users;
+    }
+
+    listBikes(): Bike[] {
+        return this.bikes;
+    }
+
+    listRents(): Rent[] {
+        return this.rents;
+    }
 }
