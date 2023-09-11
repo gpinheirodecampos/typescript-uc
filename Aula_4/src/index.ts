@@ -44,7 +44,8 @@ console.log('Antes do retorno', app.rents);
 app.retornarBike(bike2Id, user2.email);
 console.log('Depois do retorno', app.rents);
 
-//console.log('bike2 :>> ', bike1);
+// testando criptografia de senha
+console.log(app.autenticaSenha('gu@mail.com', '1234'));
 
 // Programa atualizado com as correcoes vistas durante a aula
 
