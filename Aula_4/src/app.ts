@@ -29,7 +29,7 @@ export class App {
 
     autenticaSenha(email: string, userPassword: string): boolean {
         const usuario = this.findUser(email);
-        return compareSync(userPassword, usuario.senhaCripto);
+        return compareSync(userPassword, usuario.password);
     }
 
     rentBike(bikeId: string, userEmail: string, startDate: Date, endDate: Date) {
