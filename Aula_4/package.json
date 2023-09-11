@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "prompt-sync": "^4.2.0"
   },
   "devDependencies": {

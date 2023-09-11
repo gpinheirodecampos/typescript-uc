@@ -2,7 +2,8 @@ import { Bike } from "./bike";
 import { Rent } from "./rent";
 import { User } from "./user";
 
-import crypto from "crypto"
+import crypto from "crypto";
+import { hashSync, compareSync } from "bcryptjs";
 
 export class App {
     users: User[] = []
@@ -20,8 +21,15 @@ export class App {
             }
         }
         user.id = crypto.randomUUID();
+        const hash = hashSync(user.password, 8);
+        user.password = hash;
         this.users.push(user);
         return user.id;
+    }
+
+    autenticaSenha(email: string, userPassword: string): boolean {
+        const usuario = this.findUser(email);
+        return compareSync(userPassword, usuario.senhaCripto);
     }
 
     rentBike(bikeId: string, userEmail: string, startDate: Date, endDate: Date) {
