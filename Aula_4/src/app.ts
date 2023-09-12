@@ -44,11 +44,15 @@ export class App {
         const usuarioProcurado = this.users.find(user => user.email == userEmail);
 
         // array somente com as reservas para a bike
-        const reservas = this.rents.filter(reserva => 
-            reserva.bike.id == bikeProcurada.id && !reserva.dateReturned);
+        //const reservas = this.rents.filter(reserva => 
+        //    reserva.bike.id == bikeProcurada.id && !reserva.end);
 
-        // tentar criar o rent com o array e as informações da reserva
-        const novaReserva = Rent.create(reservas, startDate, endDate, bikeProcurada, usuarioProcurado);
+        // criar o rent com as informações da reserva
+        const now = new Date();
+        const novaReserva = new Rent(bikeProcurada, usuarioProcurado, now);
+        
+        // alterando disponibilidade da bike
+        bikeProcurada.available = false;
 
         // adicionar a reserva ao array de reservas
         this.rents.push(novaReserva);
@@ -57,19 +61,29 @@ export class App {
     }
     
     // return bike
-    retornarBike(bikeId: string, userEmail: string) {
-        const today = new Date();
+    retornarBike(bikeId: string, userEmail: string): number {
+        const now = new Date();
+
+        // obtendo reserva
         const reserva = this.rents.find(reserva =>
             reserva.bike.id == bikeId &&
             reserva.user.email == userEmail &&
-            reserva.dateReturned  == undefined &&
-            reserva.dateFrom <= today
+            reserva.bike.available == false &&
+            reserva.end  == undefined
         )
+        
+        // alterando disponibilidade
+        reserva.bike.available == true;
+
+        // alterando data do retorno da bike
         if (reserva) {
-            reserva.dateReturned = today;
+            reserva.end = now;
             return
         }
-        //console.log(reserva);
+
+        const horas = Math.floor(now.getTime() / 3600000);
+        
+        return reserva.bike.rate * horas;
     }
 
     registerBike(bike: Bike) {

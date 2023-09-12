@@ -7,8 +7,8 @@ export class Bike
         public maxLoad: number,
         public rate: number,
         public description: string,
+        public available: boolean,
         public ratings: number,
-        public imageUrls: string[],
         public id?: string
      ) { }
 

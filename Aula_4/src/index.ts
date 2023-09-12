@@ -6,8 +6,8 @@ import { Rent } from "./rent";
 import { User } from "./user";
 
 // Criando bicicletas
-const bike1 = new Bike('caloi', 'irada', 123, 500, 500, 'desc', 5, []);
-const bike2 = new Bike('oii', 'laa', 123, 500, 500, 'desc', 5, []);
+const bike1 = new Bike('caloi irada', 'irada', 10, 12, 100, 'muito irada', true, 5, 'desc');
+const bike2 = new Bike('caloi incrivel', 'incrivel', 11, 13, 150, 'muito incrivel', true, 5, 'desc');
 
 // Criando usuarios
 const user1 = new User('gabs', 'gabs@mail.com', 'daora');
@@ -46,6 +46,8 @@ console.log('Depois do retorno', app.rents);
 
 // testando criptografia de senha
 console.log(app.autenticaSenha('gu@mail.com', '1234'));
+
+
 
 // Programa atualizado com as correcoes vistas durante a aula
 
