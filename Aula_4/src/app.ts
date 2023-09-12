@@ -76,10 +76,7 @@ export class App {
         reserva.bike.available == true;
 
         // alterando data do retorno da bike
-        if (reserva) {
-            reserva.end = now;
-            return
-        }
+        reserva.end = now;
 
         const horas = Math.floor(now.getTime() / 3600000);
         
