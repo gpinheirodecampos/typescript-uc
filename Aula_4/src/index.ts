@@ -38,7 +38,7 @@ var bike2Id = app.registerBike(bike2);
 app.removeUser(user1Id);
 
 // Alugando bicicletas
-app.rentBike(bike2Id, 'gu@mail.com', today, sevenDaysFromToday);
+app.rentBike(bike2Id, 'gu@mail.com', today);
 console.log('Antes do retorno', app.rents);
 
 app.retornarBike(bike2Id, user2.email);

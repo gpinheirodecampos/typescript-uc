@@ -32,7 +32,7 @@ export class App {
         return compareSync(userPassword, usuario.password);
     }
 
-    rentBike(bikeId: string, userEmail: string, startDate: Date, endDate: Date) {
+    rentBike(bikeId: string, userEmail: string, startDate: Date) {
         // recuperar a bike
         const bikeProcurada = this.bikes.find(bike => bike.id == bikeId);
         //console.log(bikeProcurada);
@@ -73,7 +73,7 @@ export class App {
         )
         
         // alterando disponibilidade
-        reserva.bike.available == true;
+        reserva.bike.available = true;
 
         // alterando data do retorno da bike
         reserva.end = now;
