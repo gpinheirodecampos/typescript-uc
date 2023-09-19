@@ -1,6 +1,7 @@
 import { Bike } from "./bike";
 import { Rent } from "./rent";
 import { User } from "./user";
+import { Localizacao } from "./localizacao";
 
 import crypto from "crypto";
 import { hashSync, compareSync } from "bcryptjs";
@@ -103,6 +104,13 @@ export class App {
 
         // Removendo
         this.bikes.splice(indexUser, 1);
+    }
+
+    moverBikePara(bikeId: string, Localizacao: Localizacao) {
+        const bike = this.bikes.find(bike => bike.id === bikeId)
+        if (!bike) throw new Error('Bike not found.') 
+        bike.localizacao.latitude = Localizacao.latitude
+        bike.localizacao.longitude = Localizacao.longitude
     }
 
     listUser(): User[] {

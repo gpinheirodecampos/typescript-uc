@@ -1,3 +1,5 @@
+import { Localizacao } from "./localizacao";
+
 export class Bike
 {
     constructor(
@@ -9,6 +11,7 @@ export class Bike
         public description: string,
         public available: boolean,
         public ratings: number,
+        public localizacao: Localizacao = new Localizacao(0.0, 0.0),
         public id?: string
      ) { }
 
