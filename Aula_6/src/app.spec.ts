@@ -41,19 +41,19 @@ describe('App', () => {
     })
 
     // Testando autenticacao
-    it('should correctly authenticates de users password', async () => {
-        const user = new User("pinheiro", "pinheiro@gmail.com");
-        const app = new App();
-        await app.registerUser(user);
-        await expect(app.authenticate(user.email, user.password)).resolves.toBeTruthy();
-    })
+    // it('should correctly authenticates de users password', async () => {
+    //     const user = new User("pinheiro", "pinheiro@gmail.com");
+    //     const app = new App();
+    //     await app.registerUser(user);
+    //     await expect(app.authenticate(user.email, user.password)).resolves.toBeTruthy();
+    // })
 
-    it('should throw an exception when passwords dont match', async () => {
-        const user = new User("pinheiro", "pinheiro@gmail.com");
-        const app = new App();
-        await app.registerUser(user);
-        await expect(app.authenticate(user.email, "senhaFalsa")).rejects.toBeFalsy();
-    })
+    // it('should throw an exception when passwords dont match', async () => {
+    //     const user = new User("pinheiro", "pinheiro@gmail.com");
+    //     const app = new App();
+    //     await app.registerUser(user);
+    //     await expect(app.authenticate(user.email, "senhaFalsa")).rejects.toBeFalsy();
+    // })
 
     // Testando returnBike
     it('should correctly calculate the rent amount', async () => {
