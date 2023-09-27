@@ -17,6 +17,12 @@ describe('App', () => {
         await expect(app.registerUser(user)).rejects.toThrow(DuplicatedUserError);        
     })
 
+    it('should correctly register a user', async () => {
+        const user = new User("pinheiro", "pinheiro@gmail.com", "123");
+        const app = new App();
+        await expect(app.registerUser(user)).resolves.toEqual(user.id);        
+    })
+
     // Testando findUser
     it('should correctly find a user', async () => {
         const app = new App();
@@ -35,8 +41,18 @@ describe('App', () => {
     })
 
     // Testando autenticacao
-    it('', () => {
-        
+    it('should correctly authenticates de users password', async () => {
+        const user = new User("pinheiro", "pinheiro@gmail.com");
+        const app = new App();
+        await app.registerUser(user);
+        await expect(app.authenticate(user.email, user.password)).resolves.toBeTruthy();
+    })
+
+    it('should throw an exception when passwords dont match', async () => {
+        const user = new User("pinheiro", "pinheiro@gmail.com");
+        const app = new App();
+        await app.registerUser(user);
+        await expect(app.authenticate(user.email, "senhaFalsa")).rejects.toBeFalsy();
     })
 
     // Testando returnBike
