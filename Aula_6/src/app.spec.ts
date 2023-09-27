@@ -7,6 +7,7 @@ import { BikeNotFoundError } from "./errors/bike-not-found-error"
 import { UnavailableBikeError } from "./errors/unavailable-bike-error"
 import { UserNotFoundError } from "./errors/user-not-found-error"
 import { DuplicatedUserError } from "./errors/duplicated-user-error"
+import { RentNotFoundError } from "./errors/rent-not-found"
 
 describe('App', () => {
     // Testando registro de usuario duplicado
@@ -41,19 +42,12 @@ describe('App', () => {
     })
 
     // Testando autenticacao
-    // it('should correctly authenticates de users password', async () => {
-    //     const user = new User("pinheiro", "pinheiro@gmail.com");
-    //     const app = new App();
-    //     await app.registerUser(user);
-    //     await expect(app.authenticate(user.email, user.password)).resolves.toBeTruthy();
-    // })
-
-    // it('should throw an exception when passwords dont match', async () => {
-    //     const user = new User("pinheiro", "pinheiro@gmail.com");
-    //     const app = new App();
-    //     await app.registerUser(user);
-    //     await expect(app.authenticate(user.email, "senhaFalsa")).rejects.toBeFalsy();
-    // })
+    it('should correctly authenticates de users password', async () => {
+         const user = new User("pinheiro", "pinheiro@gmail.com", "123");
+         const app = new App();
+         await app.registerUser(user);
+         await expect(app.authenticate('pinheiro@gmail.com', '123')).resolves.toBeTruthy();
+     })
 
     // Testando returnBike
     it('should correctly calculate the rent amount', async () => {
@@ -119,5 +113,13 @@ describe('App', () => {
         expect(() => {
             app.rentBike(bike.id, user.email)
         }).toThrow(UnavailableBikeError)
+    })
+
+    // Testando RentNotFound
+    it('should throw rent not found', () => {
+        const app = new App();
+        expect(() => {
+            app.findRent("uiuiui", "lala")
+        }).toThrow(RentNotFoundError);
     })
 })
