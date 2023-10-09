@@ -49,7 +49,7 @@ export class App {
         await this.findUser(email)
         if (await this.rentRepo.findOpenRents(email)) {
             throw new OpenRentError();
-        }            
+        }   
         await this.userRepo.remove(email)
     }
     
